@@ -25,3 +25,12 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+npm i bootstrap@5.3.3
+
+icon
+npm install @fortawesome/fontawesome-free
+
+npm install -g ng-openapi-gen
+No Script "api-gen": "ng-openapi-gen --input ./src/openapi/openapi.json --output ./src/app/services",
+npm run api-gen  
