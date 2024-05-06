@@ -30,7 +30,7 @@ export class LoginComponent {
       next: (res) => {
         debugger;
         console.log(res);
-        this.router.navigate(['books']);
+        this.router.navigate(['teste']);
       },
       error: (err) => {
         console.log(err.error);
