@@ -36,7 +36,7 @@ export class RegisterComponent {
           this.router.navigate(['activate-account']);
         },
         error: (err) => {
-          this.errorMsg = err.error.validationErrors;
+          this.errorMsg = err.errors.messages;
         }
       });
   }

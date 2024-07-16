@@ -6,6 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
 
+interface ErrorMessage {
+  code: number;
+  message: string;
+}
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -24,22 +29,18 @@ export class LoginComponent {
   ) {}
 
   onLogin() {
-    debugger;
-    this.errorMsg = [];
     this.authService.authenticate(this.authRequest).subscribe({
       next: (res) => {
-        debugger;
-        console.log(res);
-        this.router.navigate(['teste']);
+        this.router.navigate(['users']);
       },
       error: (err) => {
-        console.log(err.error);
-        if (err.error.validationErrors) {
-          this.errorMsg = err.error.validationErrors;
+        
+        if (err.errors && err.errors.messages) {
+          this.errorMsg = err.errors.messages.map((msg: ErrorMessage) => msg.message);
         } else {
-          this.errorMsg.push(err.error.error);
+          this.errorMsg = ["e-mail ou senha incorreto."];
         }
-        debugger;
+        console.log(this.errorMsg);
       }
     });
   }

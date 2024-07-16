@@ -5,8 +5,10 @@ import { Observable, map } from 'rxjs';
 import { TokenService } from '../token/token.service';
 
 const BASIC_URL = 'http://localhost:8080';
-const AUTH_URL = '/api/v1/auth';
-export const AUTH_HEADER = 'authorization';
+const AUTH_URL = '/api/authenticate';
+const MAIL_URL = '/api/mail';
+const ACCOUNT_URL = '/api/user-account';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +18,13 @@ export class AuthService {
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   register(request: RegisterRequest): Observable<any>{
-    return this.http.post(BASIC_URL + AUTH_URL + "/register", request)
+    return this.http.post(BASIC_URL + ACCOUNT_URL, request)
   }
 
   authenticate(request: AuthenticationRequest){
-    return this.http.post(BASIC_URL + AUTH_URL + "/authenticate", request)
+    return this.http.post(BASIC_URL + AUTH_URL, request)
       .pipe(
         map((res: AuthenticationResponse) =>{
-          console.log(res)
           this.tokenService.accessToken = res.accessToken as string;
           return res;
         })
@@ -31,6 +32,6 @@ export class AuthService {
   }
 
   confirmAccount(token: string): Observable<any>{
-    return this.http.get(BASIC_URL + AUTH_URL + "/activate-account" + `?token=${token}`)
+    return this.http.get(BASIC_URL + MAIL_URL + "/activate-account" + `?token=${token}`)
   }
 }
